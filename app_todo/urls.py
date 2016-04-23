@@ -2,8 +2,8 @@ from django.conf.urls import url
 from . import views
 
 
-urlpatterns = [
+# urlpatterns = [
 
-    # url(r'^accueil$', views.home),
+#     url(r'^accueil$', views.home),
 
-]
+# ]
