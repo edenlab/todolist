@@ -12,27 +12,36 @@ class TaskForm(ModelForm):
 
 def home(request, template_name='app_todo/home.html'):
   tasks = Task.objects.all()
-  return render(request, template_name)
+  ctx = {}
+  ctx['tasks'] = tasks
+  return render(request, template_name, ctx)
 
 def task_create(request, template_name='app_todo/task_form.html'):
-  form = TaskForm(resquest .POST or None)
+  form = TaskForm(request.POST or None)
   if form.is_valid():
     form.save()
-    return redirect('todo_list:home')
-  return render(request, template_name)
+    return redirect('app_todo:home')
+  ctx = {}
+  ctx['form'] = form
+  return render(request, template_name, ctx)
 
 def task_update(request, id, template_name='app_todo/task_form.html'):
   task = get_object_or_404(Task, id=id)
-  form = TaskForm(resquest .POST or None, instance=task)
+  form = TaskForm(request.POST or None, instance=task)
   if form.is_valid():
     form.save()
-    return redirect('todo_list:home')
-  return render(request, template_name)
+    return redirect('app_todo:home')
+  ctx = {}
+  ctx['form'] = form
+  ctx['task'] = task
+  return render(request, template_name, ctx)
 
 def task_delete(request, id, template_name='app_todo/task_confirm_delete.html'):
   task = get_object_or_404(Task, id=id)
   if request.method=='POST':
-    book.delete()
-    return redirect('books_simple:home')
-  return render(request, template_name)
+    task.delete()
+    return redirect('app_todo:home')
+  ctx = {}
+  ctx['task'] = task
+  return render(request, template_name, ctx)
 
