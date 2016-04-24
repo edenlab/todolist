@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-urlpatterns = [
+urlpatterns = patterns['app_todo.views',
     url(r'^admin/', admin.site.urls),
-    # url(r'^app_todo/', include('app_todo.urls')),
+    url(r'^app_todo/', include('app_todo.urls')),
 ]
