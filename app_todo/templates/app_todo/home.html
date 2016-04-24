@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<ul>
+    {% for task in tasks %}
+    <li>{{ task.description }}  ({{ task.due_date }} Pages)
+    <a href="{% url 'app_todo:task_edit' task.id %}">edit</a>
+    <a href="{% url 'app_todo:task_delete' task.id %}">delete</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'todo_list:task_new' %}">New</a>
+{% endblock %}
