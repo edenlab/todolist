@@ -10,18 +10,18 @@ class TaskForm(ModelForm):
     model = Task
     fields = ['description', 'due_date']
 
-def home(request, template_name='todo_list/home.html'):
+def home(request, template_name='app_todo/home.html'):
   tasks = Task.objects.all()
   return render(request, template_name)
 
-def task_create(request, template_name='todo_list/task_form.html'):
+def task_create(request, template_name='app_todo/task_form.html'):
   form = TaskForm(resquest .POST or None)
   if form.is_valid():
     form.save()
     return redirect('todo_list:home')
   return render(request, template_name)
 
-def task_update(request, id, template_name='todo_list/task_form.html'):
+def task_update(request, id, template_name='app_todo/task_form.html'):
   task = get_object_or_404(Task, id=id)
   form = TaskForm(resquest .POST or None, instance=task)
   if form.is_valid():
@@ -29,7 +29,7 @@ def task_update(request, id, template_name='todo_list/task_form.html'):
     return redirect('todo_list:home')
   return render(request, template_name)
 
-def task_delete(request, id, template_name='todo_list/task_confirm_delete.html'):
+def task_delete(request, id, template_name='app_todo/task_confirm_delete.html'):
   task = get_object_or_404(Task, id=id)
   if request.method=='POST':
     book.delete()

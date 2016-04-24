@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<h1>My Tasks</h1>
 <ul>
     {% for task in tasks %}
-    <li>{{ task.description }}  ({{ task.due_date }} Pages)
+    <li>{{ task.description }}  ( due for {{ task.due_date }} )
     <a href="{% url 'app_todo:task_edit' task.id %}">edit</a>
     <a href="{% url 'app_todo:task_delete' task.id %}">delete</a>
     </li>
     {% endfor %}
 </ul>
 
-<a href="{% url 'todo_list:task_new' %}">New</a>
+<a href="{% url 'app_todo:task_new' %}">New</a>
 {% endblock %}
