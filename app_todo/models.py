@@ -8,7 +8,7 @@ class Task(models.Model):
   due_date = models.DateTimeField(verbose_name="Due date")
   date_crea = models.DateTimeField(auto_now_add=True, auto_now=False,
                               verbose_name="Date of creation")
-  # is_done = models.BooleanField(default=False)
+  is_done = models.BooleanField(default=False)
 
   def __str__(self):
     return self.description
@@ -16,10 +16,11 @@ class Task(models.Model):
   class Meta:
     ordering = ['due_date', 'description']
 
-  # @property
-  #   def done(self):
-  #     return self.is_done = True
+  @property
+  def done(self):
+    self.is_done = True
 
-  # @property
-  #   def overdue(self):
-  #       return self.due_date and self.due_date < datetime.utcnow()
+
+  @property
+  def overdue(self):
+    return self.due_date and self.due_date < datetime.utcnow()
