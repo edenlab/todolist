@@ -5,7 +5,10 @@
 <ul>
     {% for task in tasks %}
     <li>{{ task.description }}  ( due for {{ task.due_date }} )
-    <input type="checkbox" {% if task.done%} checked="checked" {% endif %}>
+      <form method="post" action="{% url 'app_todo:task-done' task.id %}">
+          {% csrf_token %}
+          <input type="checkbox" {% if task.is_done%} checked="checked" {% endif %} onclick="this.parentNode.submit();" >
+      </form>
     </li>
     <a href="{% url 'app_todo:task_edit' task.id %}">edit</a>
     <a href="{% url 'app_todo:task_delete' task.id %}">delete</a>
@@ -13,6 +16,11 @@
 </ul>
 
 <a href="{% url 'app_todo:task_new' %}">New</a>
+
+<input type="submit" value="Sort" {% if task.sort_order%}{% endif %}>
+
+
 {% endblock %}
+
 
 

@@ -47,9 +47,18 @@ def task_delete(request, id, template_name='app_todo/task_confirm_delete.html'):
 
 def mark_as_done(request, id, template_name='app_todo/home.html'):
   task = get_object_or_404(Task, id=id)
-  task.done
-  task.save()
+  if request.method == 'POST':
+    task.is_done = not task.is_done
+    task.save()
+    return redirect('app_todo:home')
   ctx = {}
   ctx['task'] = task
+  return render(request, template_name, ctx)
+
+def sort_order(request, id, template_name='app_todo/home.html'):
+  tasks = Task.objects.all()
+  tasks.sort_by('is_done')
+  ctx = {}
+  ctx['tasks'] = tasks
   return render(request, template_name, ctx)
 

@@ -16,9 +16,9 @@ class Task(models.Model):
   class Meta:
     ordering = ['due_date', 'description']
 
-  @property
-  def done(self):
-    self.is_done = True
+  # @property
+  # def done(self):
+  #   self.is_done = True
 
 
   @property
