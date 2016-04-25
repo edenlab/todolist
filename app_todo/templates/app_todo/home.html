@@ -5,11 +5,14 @@
 <ul>
     {% for task in tasks %}
     <li>{{ task.description }}  ( due for {{ task.due_date }} )
+    <input type="checkbox" {% if task.done%} checked="checked" {% endif %}>
+    </li>
     <a href="{% url 'app_todo:task_edit' task.id %}">edit</a>
     <a href="{% url 'app_todo:task_delete' task.id %}">delete</a>
-    </li>
     {% endfor %}
 </ul>
 
 <a href="{% url 'app_todo:task_new' %}">New</a>
 {% endblock %}
+
+
