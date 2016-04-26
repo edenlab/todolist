@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
-
+from operator import attrgetter
 from .models import Task
+import datetime
 
 # Create your views here.
 
@@ -55,10 +56,26 @@ def mark_as_done(request, id, template_name='app_todo/home.html'):
   ctx['task'] = task
   return render(request, template_name, ctx)
 
-def sort_order(request, id, template_name='app_todo/home.html'):
-  tasks = Task.objects.all()
-  tasks.sort_by('is_done')
+def sort_tasks(request, template_name='app_todo/home.html'):
+  tasks = Task.objects.order_by('-is_done').all()
   ctx = {}
   ctx['tasks'] = tasks
   return render(request, template_name, ctx)
+
+def sort_tasks_overdue(request, template_name='app_todo/home.html'):
+  tasks = Task.objects.order_by('due_date').all()
+  ctx = {}
+  ctx['tasks'] = tasks
+  return render(request, template_name, ctx)
+
+
+# class TaskDayArchiveView(DayArchiveView):
+#     queryset = Task.objects.all()
+#     datetime_field = "date_crea"
+#     allow_future = True
+
+# def get_queryset(self):
+
+#   def filter_tasks(request, template_name='app_todo/filter_date.html'):
+
 

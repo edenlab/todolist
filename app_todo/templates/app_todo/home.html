@@ -5,19 +5,30 @@
 <ul>
     {% for task in tasks %}
     <li>{{ task.description }}  ( due for {{ task.due_date }} )
-      <form method="post" action="{% url 'app_todo:task-done' task.id %}">
+
+      <form method="post" action="{% url 'app_todo:task_done' task.id %}">
           {% csrf_token %}
           <input type="checkbox" {% if task.is_done%} checked="checked" {% endif %} onclick="this.parentNode.submit();" >
       </form>
     </li>
-    <a href="{% url 'app_todo:task_edit' task.id %}">edit</a>
-    <a href="{% url 'app_todo:task_delete' task.id %}">delete</a>
+    <a href="{% url 'app_todo:task_edit' task.id %}">Edit</a>
+    <a href="{% url 'app_todo:task_delete' task.id %}">Delete</a>
     {% endfor %}
 </ul>
 
 <a href="{% url 'app_todo:task_new' %}">New</a>
+<!-- <a href="{% url 'app_todo:sort_tasks' %}">Sort by done</a> -->
 
-<input type="submit" value="Sort" {% if task.sort_order%}{% endif %}>
+
+<form method="post" action="{% url 'app_todo:sort_tasks' %}">
+    {% csrf_token %}
+    <input type="submit" value="Sort by done" {% if task.sort_tasks%}{% endif %} onclick="this.parentNode.submit();">
+</form>
+
+<form method="post" action="{% url 'app_todo:sort_tasks_overdue' %}">
+    {% csrf_token %}
+    <input type="submit" value="Sort by date" {% if task.sort_tasks%}{% endif %} onclick="this.parentNode.submit();">
+</form>
 
 
 {% endblock %}

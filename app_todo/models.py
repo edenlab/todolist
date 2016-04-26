@@ -16,11 +16,9 @@ class Task(models.Model):
   class Meta:
     ordering = ['due_date', 'description']
 
+
+
+
   # @property
-  # def done(self):
-  #   self.is_done = True
-
-
-  @property
-  def overdue(self):
-    return self.due_date and self.due_date < datetime.utcnow()
+  # def overdue(self):
+  #   return self.due_date and self.due_date < datetime.utcnow()
