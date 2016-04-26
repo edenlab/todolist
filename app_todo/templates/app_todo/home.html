@@ -19,8 +19,6 @@
 </ul>
 
 <a href="{% url 'app_todo:task_new' %}">New</a>
-<!-- <a href="{% url 'app_todo:sort_tasks' %}">Sort by done</a> -->
-
 
 <form method="post" action="{% url 'app_todo:sort_tasks' %}">
     {% csrf_token %}
@@ -30,6 +28,16 @@
 <form method="post" action="{% url 'app_todo:sort_tasks_overdue' %}">
     {% csrf_token %}
     <input type="submit" value="Sort by date" {% if task.sort_tasks%}{% endif %} onclick="this.parentNode.submit();">
+</form>
+
+<form action="{% url 'app_todo:filter_tasks' %}" method="POST">
+  {% csrf_token %}
+  Select tasks per date:
+  start Date
+  <input type="date" name={{ start_date }}>
+  end Date
+  <input type="date" name={{ end_date }}>
+  <input  type = "submit" name = "submit" value = "See Results">
 </form>
 
 
