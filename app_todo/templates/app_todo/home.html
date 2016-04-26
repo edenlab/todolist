@@ -5,7 +5,9 @@
 <ul>
     {% for task in tasks %}
     <li>{{ task.description }}  ( due for {{ task.due_date }} )
-
+         {% if task.overdue %}
+          OVERDUE
+         {% endif %}
       <form method="post" action="{% url 'app_todo:task_done' task.id %}">
           {% csrf_token %}
           <input type="checkbox" {% if task.is_done%} checked="checked" {% endif %} onclick="this.parentNode.submit();" >

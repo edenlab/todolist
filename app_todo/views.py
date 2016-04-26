@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
-from operator import attrgetter
 from .models import Task
 import datetime
 
@@ -68,14 +67,9 @@ def sort_tasks_overdue(request, template_name='app_todo/home.html'):
   ctx['tasks'] = tasks
   return render(request, template_name, ctx)
 
+def filter_by_date(request, template_name='app_todo/filter_form.html'):
+  tasks = Task.objects.filter(postTime__range=(start_date, end_date))
+  form = TaskForm(request.POST or None)
 
-# class TaskDayArchiveView(DayArchiveView):
-#     queryset = Task.objects.all()
-#     datetime_field = "date_crea"
-#     allow_future = True
-
-# def get_queryset(self):
-
-#   def filter_tasks(request, template_name='app_todo/filter_date.html'):
 
 

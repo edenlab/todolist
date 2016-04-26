@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
 class Task(models.Model):
@@ -13,12 +15,6 @@ class Task(models.Model):
   def __str__(self):
     return self.description
 
-  class Meta:
-    ordering = ['due_date', 'description']
-
-
-
-
-  # @property
-  # def overdue(self):
-  #   return self.due_date and self.due_date < datetime.utcnow()
+  def overdue(self):
+    if self.due_date and self.due_date < datetime.now(timezone.utc):
+      return self
